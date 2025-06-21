@@ -1,0 +1,199 @@
+<div class="modal fade modal-load" tabindex="-1" data-bs-backdrop="static">
+	<div class="modal-dialog modal-xl pt-standalone">
+		<div class="modal-content rounded-5">
+			<div class="d-flex w-100 justify-content-end align-items-center position-relative">
+				<button type="button"
+					class="btn btn-primary position-absolute z-1 rounded-circle d-flex align-items-center justify-content-center width height top right"
+					data-bs-dismiss="modal" aria-label="Close "
+					style="--width:50px;--height:50px;--top:-5px;--right:-5px">
+					<i class="ti ti-x fs-4"></i>
+				</button>
+			</div>
+			<div class="modal-body">
+				<h5 class="fw-bold text-body mb-3">
+					<?= $title ?>
+				</h5>
+				<form method="POST" action="<?= $_SERVER['REQUEST_URI'] ?>">
+					<div class="row g-3">
+						<div class="col-lg-12">
+							<div class="mb-3">
+								<label class="fw-bold text-body mb-2">
+									<?= $jatbi->lang("Tiêu đề") ?> <span class="text-danger">*</span>
+								</label>
+								<input type="text" name="title" class="form-control py-3 rounded-4 bg-body-tertiary"
+									placeholder="<?= $jatbi->lang("Tiêu đề") ?>" value="<?= $data['title'] ?? '' ?>">
+							</div>
+						</div>
+
+						<div class="col-lg-4">
+							<div class="mb-3">
+								<label class="fw-bold text-body mb-2">
+									<?= $jatbi->lang("Tiền tệ") ?>
+								</label>
+								<input type="text" name="currency" class="form-control py-3 rounded-4 bg-body-tertiary"
+									placeholder="<?= $jatbi->lang("Tiền tệ") ?>" value="<?= $data['currency'] ?? '' ?>">
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="mb-3">
+								<label class="fw-bold text-body mb-2">
+									<?= $jatbi->lang("Mục tiêu") ?>
+								</label>
+								<input type="text" name="goal" class="form-control py-3 rounded-4 bg-body-tertiary"
+									placeholder="<?= $jatbi->lang("Mục tiêu") ?>" value="<?= $data['goal'] ?? '' ?>">
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="mb-3">
+								<label class="fw-bold text-body mb-2">
+									<?= $jatbi->lang("Quốc gia") ?>
+								</label>
+								<input type="text" name="country" class="form-control py-3 rounded-4 bg-body-tertiary"
+									placeholder="<?= $jatbi->lang("Quốc gia") ?>" value="<?= $data['country'] ?? '' ?>">
+							</div>
+						</div>
+
+						<div class="col-lg-4">
+							<div class="mb-3">
+								<label class="fw-bold text-body mb-2">
+									<?= $jatbi->lang("Năm") ?>
+								</label>
+								<input type="text" name="year" class="form-control py-3 rounded-4 bg-body-tertiary"
+									placeholder="<?= $jatbi->lang("Năm") ?>" value="<?= $data['year'] ?? '' ?>">
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="mb-3">
+								<label class="fw-bold text-body mb-2">
+									<?= $jatbi->lang("Thể loại") ?>
+								</label>
+								<?=$app->component('select-modal',[
+									"name"=>'tags',
+									"selections" => $selected_tag ?? [],
+									"class" => 'filter-name',         
+									"attr" => 'data-width="100%" multiple data-actions-box="true"',
+									"options" => $tag,
+								])?>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="mb-3">
+								<label class="fw-bold text-body mb-2">
+									<?= $jatbi->lang("Trang") ?>
+								</label>
+								<?=$app->component('select-modal',[
+									"name"=>'pages',
+									"selections" => $selected_page ?? [],
+									"class" => 'filter-name',         
+									"attr" => 'data-width="100%" multiple data-actions-box="true"',
+									"options" => $page,
+								])?>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="mb-3">
+								<label class="fw-bold text-body mb-2">
+									<?= $jatbi->lang("SEO") ?>
+								</label>
+								<input type="text" name="SEO" class="form-control py-3 rounded-4 bg-body-tertiary"
+								placeholder="<?= $jatbi->lang("SEO") ?>" value="<?= $data['SEO'] ?? '' ?>">
+							</div>
+						</div>
+
+						<div class="col-lg-6">
+							<div class="mb-3">
+								<label class="fw-bold text-body mb-2">
+									<?= $jatbi->lang("Hình ảnh") ?>
+								</label>
+								<input type="file" name="thumbnail" class="form-control py-3 rounded-4 bg-body-tertiary"
+									placeholder="<?= $jatbi->lang("Hình ảnh") ?>" value="
+								<?= $data['thumbnail'] ?? '' ?>" onchange="previewImage(event)">
+								<img id="thumbnail-preview" src="<?= getThumbnail($data['thumbnail']) ?>"
+									alt="<?= $jatbi->lang('Hình ảnh') ?>" class="mx-auto"
+									style="margin-top: 10px;width: 100%;height: auto;object-fit: cover;display: block;" />
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="row">
+								<div class="mb-3">
+									<label class="fw-bold text-body mb-2">
+										<?= $jatbi->lang("Mô tả") ?>
+									</label>
+									<textarea name="description" class="form-control py-3 rounded-4 bg-body-tertiary"
+										style="min-height: 200px;" placeholder="<?= $jatbi->lang("Mô tả")
+										?>"><?=$data['description'] ?></textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-12">
+							<div class="mb-3">
+								<label class="fw-bold text-body mb-2">
+									<?= $jatbi->lang("Nội dung") ?>
+								</label>
+								<div class="mb-3">
+									<div id="editor-container" class="bg-body-tertiary rounded-4"
+										style="height: 650px;"></div>
+									<input type="hidden" name="content" id="content"
+										value="<?= htmlspecialchars($data['content'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<button type="submit" class="btn btn-primary w-100 py-3 rounded-pill fw-bold"
+								data-action="submit" data-alert="true" data-load="this">
+								<?= $jatbi->lang("Hoàn thành") ?>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var quill = new Quill('#editor-container', {
+		theme: 'snow',
+		modules: {
+			toolbar: [
+				[{'header': [1, 2, 3, 4, 5, 6, false]}],
+				['bold', 'italic', 'underline', 'strike'],
+				[{
+					'color': []
+				}, {
+					'background': []
+				}],
+				[{
+					'align': []
+				}],
+				['image', 'video'],
+				['clean']
+			]
+		},
+		placeholder: '<?= $jatbi->lang("Nội dung") ?>',
+	});
+
+	// Lấy nội dung từ input ẩn
+	var content = document.getElementById("content").value;
+
+	// Nếu có dữ liệu từ PHP, hiển thị vào Quill
+	if (content) {
+		quill.root.innerHTML = content;
+	}
+
+	// Cập nhật giá trị của input ẩn khi nội dung trong Quill thay đổi
+	quill.on("text-change", function () {
+
+		document.getElementById("content").value = quill.root.innerHTML;
+	});
+
+	function previewImage(event) {
+		const reader = new FileReader();
+		reader.onload = function () {
+			const output = document.getElementById('thumbnail-preview');
+			output.src = reader.result;
+
+		};
+		reader.readAsDataURL(event.target.files[0]);
+	}
+</script>

@@ -1,0 +1,33 @@
+services:
+  app:
+    build: .
+    container_name: php_apache_app
+    ports:
+      - "8081:80"
+    volumes:
+      - .:/var/www/html
+      # - /var/www/html/vendor
+    env_file:
+      - ./.env
+    # environment:
+    #   - DATABASE_HOST=host.docker.internal
+    #   - DATABASE_PORT=3306
+    #   - DATABASE_NAME=profit_station_db
+    #   - DATABASE_USER=root
+    #   - DATABASE_PASSWORD=
+    # db:
+    #   image: mysql:5.7
+    #   container_name: mysql_xampp
+    #   restart: always
+    #   ports:
+    #     - "3307:3307"
+    #   environment:
+    #     MYSQL_ROOT_PASSWORD: ""
+    #     MYSQL_DATABASE: your_db_name
+    #     MYSQL_USER: root
+    #     MYSQL_PASSWORD: ""
+    #   volumes:
+    #     - mysql_data:/var/lib/mysql
+
+    # volumes:
+    #   mysql_data:

@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="/templates/assets/css/style-iMac của Jatbi.css" />
+<div class="container">
+    <div class="mb-3 d-flex justify-content-between align-items-center">
+        <div>
+            <h4 class="mb-0 fw-bold text-body"><?= $title ?></h4>
+            <ul class="breadcrumb small mb-0">
+                <li class="breadcrumb-item small">
+                    <a href="/" class="pjax-load link-secondary"><?= $jatbi->lang("Trang chủ") ?></a>
+                </li>
+                <li class="breadcrumb-item small text-body" aria-current="page"><?= $title ?></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card bg-body bg-opacity-50 shadow border-0 rounded-4">
+        <div class="card-body">
+            <table id="datatable"
+                data-table
+                class="table align-middle"
+                data-type="POST"
+                data-server="true"
+                data-processing="true"
+                data-page-length="10"
+                data-searching="true"
+                data-paging="true"
+                data-state-save='true'
+                style="width:100%">
+                <thead>
+                    <tr>
+                        <th data-name="name" data-orderable="true" class="text-nowrap " data-visible="true" data-class="text-nowrap"><?= $jatbi->lang("Họ tên") ?></th>
+                        <th data-name="phone_number" data-orderable="true" class="text-nowrap " data-visible="true" data-class="text-nowrap text-start"><?= $jatbi->lang("Số điện thoại") ?></th>
+                        <th data-name="email" data-orderable="true" class="text-nowrap " data-visible="true" data-class="text-nowrap text-start"><?= $jatbi->lang("Email") ?></th>
+                        <th data-name="created_at" data-orderable="true" class="text-nowrap " data-visible="true" data-class="text-nowrap text-start"><?= $jatbi->lang("Ngày gửi") ?></th>
+                        <th data-name="views" data-orderable="false" class="text-nowrap text-end" data-class="text-end"><?=$jatbi->lang("Tùy chọn")?></th> 
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="modal fade modal-load" tabindex="-1" data-bs-backdrop="static">
+	<div class="modal-dialog modal-xl pt-standalone">
+		<div class="modal-content rounded-5">
+			<div class="d-flex w-100 justify-content-end align-items-center position-relative">
+				<button type="button" class="btn btn-primary position-absolute z-1 rounded-circle d-flex align-items-center justify-content-center width height top right" data-bs-dismiss="modal" aria-label="Close " style="--width:50px;--height:50px;--top:-5px;--right:-5px">
+					<i class="ti ti-x fs-4"></i>
+				</button>
+			</div>
+			<div class="modal-body">
+				<h5 class="fw-bold text-body mb-3"><?= $title ?></h5>
+				<form method="POST" action="<?= $_SERVER['REQUEST_URI'] ?>">
+					<div class="row g-3">
+						<div class="col-lg-6">
+							<div class="mb-3">
+								<label class="fw-bold text-body mb-2"><?= $jatbi->lang("Họ tên") ?></label>
+								<input readonly type="text" name="name" class="form-control py-3 rounded-4 bg-body-tertiary" placeholder="<?= $jatbi->lang("Họ tên") ?>" value="<?= $data['name'] ?? '' ?>">
+							</div>
+                            <div class="mb-3">
+								<label class="fw-bold text-body mb-2"><?= $jatbi->lang("Số điện thoại") ?> </label>
+								<input readonly type="text" name="phone_number" class="form-control py-3 rounded-4 bg-body-tertiary" placeholder="<?= $jatbi->lang("Số điện thoại") ?>" value="<?= $data['phone_number'] ?? '' ?>">
+							</div>
+                            <div class="mb-3">
+								<label class="fw-bold text-body mb-2"><?= $jatbi->lang("Email") ?> </label>
+								<input readonly type="text" name="email" class="form-control py-3 rounded-4 bg-body-tertiary" placeholder="<?= $jatbi->lang("Email") ?>" value="<?= $data['email'] ?? '' ?>">
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="mb-3">
+								<label class="fw-bold text-body mb-2"><?= $jatbi->lang("Tên công ty") ?> </label>
+								<input readonly type="text" name="company_name" class="form-control py-3 rounded-4 bg-body-tertiary" placeholder="<?= $jatbi->lang("Tên công ty") ?>" value="<?= $data['company_name'] ?? '' ?>">
+							</div>
+                            <div class="mb-3">
+								<label class="fw-bold text-body mb-2"><?= $jatbi->lang("Chức vụ") ?> </label>
+								<input readonly type="text" name="position" class="form-control py-3 rounded-4 bg-body-tertiary" placeholder="<?= $jatbi->lang("Chức vụ") ?>" value="<?= $data['position'] ?? '' ?>">
+							</div>
+                            <div class="mb-3">
+								<label class="fw-bold text-body mb-2"><?= $jatbi->lang("Ngày gửi") ?> <span class="text-danger">*</span></label>
+								<input readonly type="text" name="created_at" class="form-control py-3 rounded-4 bg-body-tertiary" placeholder="<?= $jatbi->lang("Ngày gửi") ?>" value="<?= $data['created_at'] ?? '' ?>">
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="mb-3">
+								<label class="fw-bold text-body mb-2"><?= $jatbi->lang("Nội dung") ?></label>
+								<textarea readonly name="content" class="form-control py-3 rounded-4 bg-body-tertiary" style="min-height: 200px;" placeholder="<?= $jatbi->lang("Nội dung") ?>"><?=$data['content'] ?></textarea>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

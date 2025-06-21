@@ -1,0 +1,8 @@
+{
+    "require": {
+        "eclo/app": "^1.2",
+        "minishlink/web-push": "^9.0",
+        "gettext/gettext": "^5.7",
+        "erusev/parsedown": "^1.7"
+    }
+}

@@ -1,0 +1,145 @@
+    </div>
+    <script src="/VvvebJs/libs/builder/builder.js"></script>
+    <script src="/VvvebJs/libs/builder/undo.js"></script>
+    <!-- inputs-->
+    <script src="/VvvebJs/libs/builder/inputs.js"></script>
+
+    <!-- media gallery -->
+    <link href="/VvvebJs/libs/media/media.css" rel="stylesheet" />
+    <script>
+    window.mediaPath = "/datas/imgs";
+    Vvveb.themeBaseUrl = "/datas/imgs";
+    </script>
+    <script src="/VvvebJs/libs/media/media.js"></script>
+    <!--
+    <script src="/VvvebJs/libs/media/openverse.js"></script>
+    
+    -->
+    <script src="/VvvebJs/libs/builder/plugin-media.js"></script>
+    <script src="/VvvebJs/libs/builder/plugin-google-fonts.js"></script>
+    <script src="/VvvebJs/libs/builder/components-common.js"></script>
+    <script src="/VvvebJs/libs/builder/plugin-aos.js"></script>
+    <script src="/VvvebJs/libs/builder/components-html.js"></script>
+    <script src="/VvvebJs/libs/builder/components-elements.js"></script>
+    <script src="/VvvebJs/libs/builder/section.js"></script>
+    <script src="/VvvebJs/libs/builder/components-bootstrap5.js"></script>
+    <script src="/VvvebJs/libs/builder/components-widgets.js"></script>
+    <script src="/VvvebJs/libs/builder/oembed.js"></script>
+    <script src="/VvvebJs/libs/builder/components-embeds.js"></script>
+
+    <script src="/VvvebJs/libs/builder/blocks-bootstrap4.js"></script>
+<link href="/VvvebJs/libs/codemirror/lib/codemirror.css" rel="stylesheet" />
+<link href="/VvvebJs/libs/codemirror/theme/material.css" rel="stylesheet" />
+<script src="/VvvebJs/libs/codemirror/lib/codemirror.js"></script>
+<script src="/VvvebJs/libs/codemirror/lib/xml.js"></script>
+<script src="/VvvebJs/libs/codemirror/lib/css.js"></script>
+<script src="/VvvebJs/libs/codemirror/lib/formatting.js"></script>
+<script src="/VvvebJs/libs/builder/plugin-codemirror.js"></script>
+<script src="/VvvebJs/libs/jszip/jszip.min.js"></script>
+<script src="/VvvebJs/libs/jszip/filesaver.min.js"></script>
+<script src="/VvvebJs/libs/builder/plugin-jszip.js"></script>
+
+<script>
+  // let renameUrl = "<?=$setting['backend']?>/editor/save-page?action=rename";
+  // let deleteUrl = "<?=$setting['backend']?>/editor/save-page?action=delete";
+  // let saveReusableUrl = "<?=$setting['backend']?>/editor/save-page?action=saveReusable";
+  // let oEmbedProxyUrl = "<?=$setting['backend']?>/editor/save-page?action=oembedProxy";
+
+  let defaultPages = {};
+
+  // let pages = defaultPages;
+  let pages = {
+    home: {
+      name: "home",
+      className: "page",
+      title: "Trang chủ",
+      url: "<?=$setting['backend']?>/editor/home",
+      file: "/templates/frontend/home.html",
+      folder: null,
+    },
+    about: {
+      name: "about",
+      className: "page",
+      title: "Giới thiệu",
+      url: "<?=$setting['backend']?>/editor/about",
+      file: "/templates/frontend/about.html",
+      folder: null,
+    },
+    expert: {
+      name: "contact",
+      className: "page",
+      title: "Liên hệ",
+      url: "<?=$setting['backend']?>/editor/contact",
+      file: "/templates/frontend/contact.html",
+      folder: null,
+    },
+    business: {
+      name: "business-services",
+      className: "page",
+      title: "Dịch vụ doanh nghiệp",
+      url: "<?=$setting['backend']?>/editor/business-services",
+      file: "/templates/frontend/business-services.html",
+      folder: null,
+    },
+    event: {
+      name: "event-services",
+      className: "page",
+      title: "Dịch vụ sự kiện",
+      url: "<?=$setting['backend']?>/editor/event-services",
+      file: "/templates/frontend/event-services.html",
+      folder: null,
+    },
+    news: {
+      name: "news",
+      className: "page",
+      title: "Tin tức",
+      url: "<?=$setting['backend']?>/editor/news",
+      file: "/templates/frontend/news.html",
+      folder: null,
+    },
+    projects: {
+      name: "projects",
+      className: "page",
+      title: "Dự án",
+      url: "<?=$setting['backend']?>/editor/projects",
+      file: "/templates/frontend/project.html",
+      folder: null,
+    },
+    library: {
+      name: "library",
+      className: "page",
+      title: "Thư viện số",
+      url: "<?=$setting['backend']?>/editor/library",
+      file: "/templates/frontend/library.html",
+      folder: null,
+    },
+    consultation: {
+      name: "consultation",
+      className: "page",
+      title: "Đặt lịch tư vấn",
+      url: "<?=$setting['backend']?>/editor/consultation",
+      file: "/templates/frontend/consultation.html",
+      folder: null,
+    },
+
+  };
+  let firstPage = Object.keys(pages)[0];
+</script>
+    <script src="<?=$setting['template']?>/assets/js/jquery-3.7.1.min.js"></script>
+    <script src="<?=$setting['template']?>/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="<?=$setting['template']?>/assets/js/crypto-js.min.js"></script>
+    <script src="<?=$setting['template']?>/assets/js/sweetalert2.all.min.js"></script>
+    <script src="<?=$setting['template']?>/assets/js/lazysizes.min.js" async></script>
+    <script src="<?=$setting['template']?>/assets/js/ls.bgset.min.js" async></script>
+    <script src="<?=$setting['template']?>/assets/js/infinite-ajax-scroll.min.js"></script>
+    <script src="<?=$setting['template']?>/assets/js/pjax.min.js"></script>
+    <script src="<?=$setting['template']?>/assets/js/topbar.min.js"></script>
+    <script src="<?=$setting['template']?>/assets/js/datatables.min.js"></script>
+    <script src="<?=$setting['template']?>/assets/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+    <!-- <script src="<?=$setting['template']?>/assets/js/socket.js?=v4"></script> -->
+    <script src="<?=$setting['template']?>/assets/js/main.js"></script>
+</body>
+</html>
