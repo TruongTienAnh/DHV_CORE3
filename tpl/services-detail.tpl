@@ -41,7 +41,7 @@ echo $this->footer;
 // Hiển thị nội dung
 #tab-content = <?php
     $html = '<div class="course-text"><div>' 
-          . htmlspecialchars($this->service_detail['content'] ?? $this->jatbi->lang("Không có nội dung")) 
+          . html_entity_decode($this->service_detail['content'] ?? $this->jatbi->lang("Không có nội dung")) 
           . '</div></div>';
     echo trim($html);
 ?>

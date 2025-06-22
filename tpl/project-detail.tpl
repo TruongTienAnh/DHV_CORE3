@@ -21,7 +21,6 @@ echo $this->footer;
 // Hiển thị nội dung tab Overview
 #pills-1 = <?php
     $html = '<div class="course-details-item">'
-          . '<div class="course-text"><p>' . htmlspecialchars($this->project['excerpt']) . '</p></div>'
           . '<div class="course-learn-list">'
           . '<h4 class="title">' . htmlspecialchars($this->project['title']) . '</h4>'
           . '<div class="row">' . $this->project['description'] . '</div>'
@@ -39,6 +38,22 @@ echo $this->footer;
     }
     $html .= '</div></div>';
     echo $html;
+?>
+// Thêm dữ liệu tác giả vào khối tư vấn (consultation-section)
+.expert-avatar img|src = <?php
+    // Kiểm tra và sử dụng ảnh tác giả, nếu không có thì dùng ảnh mặc định
+    echo htmlspecialchars($this->setting['template'] . '/' . ($this->project['author_image'] ?? 'default_author.jpg'));
+?>
+.expert-avatar img|alt = <?php
+    // Sử dụng tên tác giả cho alt text, nếu không có thì dùng tên mặc định
+    echo htmlspecialchars($this->project['author_name'] ?? 'Chuyên gia');
+?>
+.expert-name = <?php
+    // In tên tác giả, nếu không có thì dùng tên mặc định
+    echo htmlspecialchars($this->project['author_name'] ?? 'Chuyên gia. A');
+?>
+.consultation-quote = <?php 
+    echo ("Bạn đang gặp vấn đề về đồng bộ văn hóa nội bộ như " . ($this->project['client_name'] ?? 'một công ty nào đó') . "?");
 ?>
 
 // Hiển thị nội dung tab Reviews
@@ -90,6 +105,5 @@ echo $this->footer;
           . '</div>';
     echo $html;
 ?>
-
 // Biến giả để khắc phục lỗi Vtpl
 #dummy-variable-for-vtpl-fix = $this->dummy

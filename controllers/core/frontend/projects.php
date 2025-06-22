@@ -108,21 +108,25 @@ $projectDetailHandler = function($vars) use ($app, $jatbi, $setting, $view) {
     }
 
     // Lấy thông tin dự án theo slug
-    $project = $app->get("projects", [
-        "id",
-        "title",
-        "slug",
-        "client_name",
-        "description",
-        "excerpt",
-        "start_date",
-        "end_date",
-        "image_url",
-        "industry"
+    $project = $app->get("projects",[
+        "[>]author_boxes" => ["author_box" => "id"]
     ], [
-        "slug" => $slug,
-        "status" => 'A',
-        "deleted" => 0
+        "projects.id",
+        "projects.title",
+        "projects.slug",
+        "projects.client_name",
+        "projects.description",
+        "projects.excerpt",
+        "projects.start_date",
+        "projects.end_date",
+        "projects.image_url",
+        "projects.industry",
+        "author_boxes.name(author_name)",
+        "author_boxes.image_url(author_image)",
+    ], [
+        "projects.slug" => $slug,
+        "projects.status" => 'A',
+        "projects.deleted" => 0
     ]);
 
     // Nếu không tìm thấy dự án, trả về 404
@@ -142,6 +146,7 @@ $projectDetailHandler = function($vars) use ($app, $jatbi, $setting, $view) {
     $project['industry'] = $project['industry'] ?? 'Chưa phân loại';
     $project['description'] = htmlspecialchars_decode($project['description'] ?? '', ENT_QUOTES);
     $project['excerpt'] = $project['excerpt'] ?? '';
+    $project['author_name'] = 'Chuyên gia. ' . $project['author_name'] ?? 'Chuyên gia. A';
 
     // Lấy danh sách hình ảnh của dự án
     $projectImages = $app->select("project_images", [
