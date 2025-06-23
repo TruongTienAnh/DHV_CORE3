@@ -7818,3 +7818,21 @@ nav .pagination.pagination-2 li a {
                 font-size: 12px;
             }
         }
+/* Cập nhật CSS cho hình ảnh trong testimonials-content */
+.testimonials-area .testimonials-content img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  padding: 0px;
+  object-fit: cover; /* Đảm bảo ảnh được cắt để lấp đầy khung mà không méo mó */
+}
+
+@media (max-width: 767px) {
+  .testimonials-area .testimonials-content img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover; /* Áp dụng tương tự cho màn hình nhỏ */
+  }
+}

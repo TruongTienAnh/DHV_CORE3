@@ -56,8 +56,8 @@
 }
 
 .speakers-thumb img {
-  width: 75%;
-  max-width: 200px;
+ width: 180px !important;       /* Chiều rộng cố định */
+  height: 180px;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 10px;
