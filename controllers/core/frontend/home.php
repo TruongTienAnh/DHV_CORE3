@@ -23,7 +23,8 @@ $app->router("/", 'GET', function ($vars) use ($app, $jatbi, $view, $setting) {
         "author_boxes.image_url(author_image)",
         "services_detail.rate"
     ], [
-        "ORDER" => ["services_detail.rate" => "DESC"]
+        "ORDER" => ["services_detail.rate" => "DESC"],
+        "services.status" => "A",
     ]);
 
     // 2. Gán dữ liệu vào đối tượng $view để file .tpl có thể sử dụng

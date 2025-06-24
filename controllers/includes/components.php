@@ -26,21 +26,22 @@ $app->setComponent('sidebar', function ($vars) use ($app, $setting, $jatbi, $Sel
     require_once('templates/components/sidebar.html');
 });
 //status Component
-$app->setComponent('status', function ($vars) use ($app, $setting, $jatbi) {
-    $url = isset($vars['url']) ? $vars['url'] : '';
-    $data = isset($vars['data']) ? $vars['data'] : '';
-    $permissions = isset($vars['permission']) ? $vars['permission'] : [];
-    $hasPermission = empty($permissions) || array_reduce($permissions, fn($carry, $perm) => $carry || $jatbi->permission($perm) == 'true', false);
-    if ($hasPermission) {
-        echo '<div class="form-check form-switch">
-                  <input class="form-check-input" data-action="click" data-url="' .  $setting['backend'] . $url . '" data-alert="true" type="checkbox" role="switch" ' . ($data == 'A' ? 'checked' : '') . '>
-               </div>';
-    } else {
-        echo '<div class="form-check form-switch">
-                  <input class="form-check-input" disabled type="checkbox" role="switch" ' . ($data == 'A' ? 'checked' : '') . '>
-               </div>';
-    }
-});
+$app->setComponent('status', function($vars) use ($app, $setting, $jatbi) {
+            $url = isset($vars['url']) ? $vars['url'] : '';
+            $data = isset($vars['data']) ? $vars['data'] : '';
+            $permissions = isset($vars['permission']) ? $vars['permission'] : [];
+            $hasPermission = empty($permissions) || array_reduce($permissions, fn($carry, $perm) => $carry || $jatbi->permission($perm) == 'true', false);
+            if ($hasPermission) {
+                echo '<div class="form-check form-switch">
+                    <input class="form-check-input" data-action="click" data-url="'.$url.'" data-alert="true" type="checkbox" role="switch" ' . ($data=='A' ? 'checked' : '') . '>
+                </div>';
+            }
+            else {
+                echo '<div class="form-check form-switch">
+                    <input class="form-check-input" disabled type="checkbox" role="switch" ' . ($data=='A' ? 'checked' : '') . '>
+                </div>';
+            }
+        });
 //status Component for modal
         $app->setComponent('status-modal', function($vars) use ($app, $setting, $jatbi) {
             $url = isset($vars['url']) ? $vars['url'] : '';

@@ -10,31 +10,46 @@ $libraryHandler = function($vars) use ($app, $jatbi, $view, $setting) {
 
     // Lấy thông tin danh mục hiện tại
     if (empty($slug)) {
-        $category = $app->get("categories", "*", ["ORDER" => ["id" => "ASC"]]);
+        // Lấy danh mục đầu tiên nếu slug rỗng
+        $category = $app->get("categories", "*", [
+            "ORDER" => ["id" => "ASC"]
+        ]);
+        if (!$category) {
+            http_response_code(404);
+            echo "Không có danh mục nào.";
+            return;
+        }
     } else {
-        $category = $app->get("categories", "*", ["slug" => $slug]);
+        // Tìm danh mục theo slug
+        $category = $app->get("categories", "*", [
+            "slug" => $slug
+        ]);
+        if (!$category) {
+            http_response_code(404);
+            echo "Danh mục không tồn tại.";
+            return;
+        }
     }
 
-    if (!$category) {
-        echo "404 - Danh mục không tồn tại.";
-        return;
-    }
-    
     // Phân trang
     $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = 16;
     $offset = ($page - 1) * $limit;
 
-    // Điều kiện lọc
-    $conditions = ["id_category" => $category['id']];
+    // Xây dựng điều kiện lọc tài liệu
+    $conditions = [
+        "id_category" => $category['id']
+    ];
+
+    // Thêm điều kiện tìm kiếm nếu có từ khóa
     if ($searchQuery !== '') {
         $conditions["OR"] = [
             "title[~]" => "%{$searchQuery}%",
             "description[~]" => "%{$searchQuery}%"
         ];
     }
-    
-    // Truy vấn CSDL
+
+    // Tổng số tài liệu để tính tổng số trang
     $totalDocuments = $app->count("resources", $conditions);
     $view->total_pages = ceil($totalDocuments / $limit);
     $view->documents = $app->select("resources", "*", ["AND" => $conditions, "LIMIT" => [$offset, $limit]]);
@@ -43,10 +58,16 @@ $libraryHandler = function($vars) use ($app, $jatbi, $view, $setting) {
     $view->categories = $app->select("categories", [
         "[>]resources" => ["id" => "id_category"]
     ], [
-        "categories.id", "categories.name", "categories.slug",
+        "categories.id",
+        "categories.name",
+        "categories.slug",
         "total" => $app->raw("COUNT(resources.id)")
     ], [
-        "GROUP" => ["categories.id", "categories.name", "categories.slug"],
+        "GROUP" => [
+            "categories.id",
+            "categories.name",
+            "categories.slug"
+        ],
         "ORDER" => "categories.name"
     ]);
     $view->admin_path = explode("/", $setting['backend'])[1];
