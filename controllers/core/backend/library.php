@@ -29,6 +29,7 @@ $app->router("/admin/library", 'GET', function ($vars) use ($app, $jatbi, $setti
     echo $app->render('templates/backend/library/library.html', $vars);
 })->setPermissions(['library']);
 
+
 $app->router("/admin/library", 'POST', function ($vars) use ($app, $jatbi, $setting) {
     $app->header(['Content-Type' => 'application/json']);
 
@@ -78,6 +79,16 @@ $app->router("/admin/library", 'POST', function ($vars) use ($app, $jatbi, $sett
     ], $where) ?? [];
 
     $formattedData = array_map(function ($data) use ($app, $jatbi, $setting) {
+        $fileLink = '';
+        if ($data['file_url']) {
+            $fileLink = htmlspecialchars($setting['template'] . '/' . $data['file_url']);
+            // Trích xuất tên file từ đường dẫn
+            $fileName = basename($data['file_url']);
+            $linkContent = '<a href="' . $fileLink . '" target="_blank">' . htmlspecialchars($fileName) . '</a>';
+        } else {
+            $linkContent = $jatbi->lang("Không xác định");
+        }
+
         $imageSrc = '';
         if ($data['img_url']) {
             $imageSrc = htmlspecialchars($setting['template'] . '/' . $data['img_url']);
@@ -89,7 +100,7 @@ $app->router("/admin/library", 'POST', function ($vars) use ($app, $jatbi, $sett
             "checkbox" => $app->component("box", ["data" => $data['id']]),
             "title" => $data['title'],
             "description" => $data['description'],
-            "file_url" => $data['file_url'],
+            "file_url" => $linkContent,
             "img_url" => $imageSrc ? '<img src="' . $imageSrc . '" width="50">' : $jatbi->lang("Không xác định"),
             "name" => $data['name'],
             "created_at" => date("Y/m/d H:i", strtotime($data['created_at'])),
