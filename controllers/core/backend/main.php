@@ -86,7 +86,7 @@ $app->group($setting['backend'], function ($app) use ($jatbi, $setting) {
     $app->router("/logout", 'GET', function ($vars) use ($app, $setting) {
         $app->deleteSession('accounts');
         $app->deleteCookie('token');
-        $app->redirect($setting['backend']);
+        $app->redirect("/");
     });
     $app->router("/register", 'GET', function ($vars) use ($app, $jatbi, $setting) {
         if (!$app->getSession("accounts")) {

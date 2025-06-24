@@ -3,7 +3,6 @@ if (!defined('ECLO')) die("Hacking attempt");
 $jatbi = new Jatbi($app);
 $setting = $app->getValueData('setting');
 $common = $app->getValueData('common');
-$app->group($setting['backend'], function ($app) use ($jatbi, $setting) {
     $app->router("/admin/blockip", 'GET', function ($vars) use ($app, $jatbi) {
         $vars['title'] = $jatbi->lang("Chặn truy cập");
         $vars['datatable'] = $app->component('datatable', ["datas" => [], "search" => []]);
@@ -421,4 +420,3 @@ $app->group($setting['backend'], function ($app) use ($jatbi, $setting) {
             echo json_encode(['status' => 'error', 'content' => $jatbi->lang("Có lỗi xẩy ra")]);
         }
     })->setPermissions(['trash']);
-});

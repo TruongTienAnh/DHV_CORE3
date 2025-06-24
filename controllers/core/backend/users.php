@@ -986,3 +986,65 @@ $app->group($setting['backend'], function ($app) use ($jatbi, $setting, $permiss
 			unlink($filePath);
 	}
 });
+function failedToUpload($jatbi, $dirPath)
+	{
+		rmdir($dirPath);
+		return json_encode(['status' => 'error', 'content' => $jatbi->lang('Upload ảnh thất bại')]);
+	}
+
+	function createDirs(...$path)
+	{
+		foreach ($path as $dir) {
+			if (!is_dir($dir)) {
+				mkdir($dir, 0755, true);
+			}
+		}
+	}
+
+	function uploadFile($app, $jatbi, $data, $path, $setting)
+	{
+		// Process to upload
+		$handle = $app->upload($data);
+		$handle->file_max_size = $setting['maxUploadSize'];
+		$imageActive = $jatbi->active();
+
+		if ($handle->uploaded) {
+			$handle->file_new_name_body = $imageActive;
+
+			$handle->Process($path);
+		}
+
+		// If upload successfully
+		if ($handle->processed) {
+			// Return the path to the image
+			return "$imageActive.{$handle->file_src_name_ext}";
+		}
+
+		// Otherwise, return null
+		return null;
+	}
+	function deleteImagesOldImage($html, $imageFolder)
+	{
+		// Tìm tất cả các ảnh trong HTML
+		preg_match_all('/<img[^>]+src=["\']([^"\']+)["\']/i', $html, $matches);
+
+		// Nếu có ảnh trong HTML
+		if (!empty($matches[1])) {
+			foreach ($matches[1] as $imageUrl) {
+				// Lấy đường dẫn ảnh (loại bỏ domain nếu có)
+				$imagePath = parse_url($imageUrl, PHP_URL_PATH);
+
+				// Kiểm tra ảnh có nằm trong thư mục src hay không
+				$fullImagePath = $_SERVER['DOCUMENT_ROOT'] . $imagePath;
+
+				if (file_exists($fullImagePath)) {
+					unlink($fullImagePath); // Xóa ảnh khỏi server
+				}
+			}
+		}
+
+		// Xóa tất cả thẻ <img> khỏi HTML
+		$htmlWithoutImages = preg_replace('/<img[^>]+>/i', '', $html);
+
+		return $htmlWithoutImages;
+	}
