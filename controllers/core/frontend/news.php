@@ -197,6 +197,19 @@ $newsDetailHandler = function($vars) use ($app, $jatbi, $setting, $view) {
         echo "Bài viết không tồn tại.";
         return;
     }
+    if (!isset($_SESSION['viewed_news'])) {
+        $_SESSION['viewed_news'] = [];
+    }
+
+    if (!in_array($post['id'], $_SESSION['viewed_news'])) {
+        $app->update("news", [
+            "views[+]" => 1
+        ], [
+            "id" => $post['id']
+        ]);
+
+        $_SESSION['viewed_news'][] = $post['id'];
+    }
 
     // Chuẩn hóa dữ liệu bài viết
     $post_data = [
